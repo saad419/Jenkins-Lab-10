@@ -24,16 +24,19 @@ pipeline {
                 bat 'mvn -version'
             }
         }
+
         stage('Test') {
             when {
                 expression { params.executeTests == true }
             }
             steps {
+                echo "Testing with conditions .."
                 echo "Testing version: ${env.VERSION} with conditions.."
                 // Example Maven test command (Windows)
                 bat 'mvn test'
             }
         }
+
         stage('Deploy') {
             steps {
                 echo "Deploying version: ${env.VERSION} ...."

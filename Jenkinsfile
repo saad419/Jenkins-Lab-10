@@ -1,5 +1,11 @@
 pipeline {
     agent any
+
+    // Define parameters
+    parameters {
+        booleanParam(name: 'executeTests', defaultValue: true, description: 'Run Test Stage?')
+    }
+
     stages {
         stage('Build') {
             steps {
@@ -7,8 +13,11 @@ pipeline {
             }
         }
         stage('Test') {
+            when {
+                expression { params.executeTests == true }
+            }
             steps {
-                echo 'Testing ..'
+                echo 'Testing with conditions..'
             }
         }
         stage('Deploy') {
@@ -17,6 +26,7 @@ pipeline {
             }
         }
     }
+
     post { 
         always {
             echo 'Pipeline Completed'

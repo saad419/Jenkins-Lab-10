@@ -41,7 +41,7 @@ pipeline {
             steps {
                 echo "Deploying version: ${env.VERSION} ...."
                 // Example Maven deploy command (Windows)
-                bat 'mvn deploy'
+                bat 'mvn package'
             }
         }
     }

@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    // Define tools
+    tools {
+        maven 'Maven' // Name of the Maven installation in Jenkins Global Tool Configuration
+    }
+
     // Define environment variables
     environment {
         VERSION = '1.0.0'
@@ -15,6 +20,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Building version: ${env.VERSION}"
+                // Run Maven on Windows
+                bat 'mvn -version'
             }
         }
         stage('Test') {
@@ -23,11 +30,15 @@ pipeline {
             }
             steps {
                 echo "Testing version: ${env.VERSION} with conditions.."
+                // Example Maven test command (Windows)
+                bat 'mvn test'
             }
         }
         stage('Deploy') {
             steps {
                 echo "Deploying version: ${env.VERSION} ...."
+                // Example Maven deploy command (Windows)
+                bat 'mvn deploy'
             }
         }
     }
